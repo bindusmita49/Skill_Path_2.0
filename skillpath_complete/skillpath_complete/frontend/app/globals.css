@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #F5F3EC;
+    --color-bg-dark: #0D0D0B;
+    --color-ink: #1A1A16;
+    --color-ink-muted: #6B6A62;
+    --color-accent: #E85D24;
+    --color-accent-2: #2563EB;
+    --color-grid: rgba(26,26,22,0.06);
+    --color-ruler: rgba(26,26,22,0.15);
+  }
+
+  .dark {
+    --color-bg: #0D0D0B;
+    --color-bg-dark: #F5F3EC;
+    --color-ink: #F5F3EC;
+    --color-ink-muted: #A1A19D;
+    --color-grid: rgba(245,243,236,0.06);
+    --color-ruler: rgba(245,243,236,0.15);
+  }
+
+  body {
+    @apply bg-[var(--color-bg)] text-[var(--color-ink)] antialiased relative overflow-x-hidden;
+  }
+
+  /* Blueprint Graphic Background Pattern */
+  .bg-blueprint {
+    background-image: 
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center top;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .ruler-border {
+    border-bottom: 1px solid var(--color-ruler);
+  }
+
+  .glass-nav {
+    @apply backdrop-blur-md bg-[var(--color-bg)] bg-opacity-80;
+  }
+
+  .perspective-1000 { perspective: 1000px; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .backface-hidden { backface-visibility: hidden; }
+  .rotate-y-180 { transform: rotateY(180deg); }
+}
+
+/* Base GSAP Hide class to avoid FOUC */
+.gsap-hide {
+  visibility: hidden;
+}
+
+/* Global transitions for interactive elements */
+a, button {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, opacity 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+.hover-card {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+.hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+}
+
+.dark .hover-card:hover {
+  box-shadow: 0 10px 30px -10px rgba(255,255,255,0.05);
+}
+
+/* Primary Button Shimmer */
+.btn-primary-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: rotate(30deg) translate(-100%, -100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+.btn-primary-shimmer:hover::after {
+  transform: rotate(30deg) translate(100%, 100%);
+}
+
+/* Link underline draw */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
